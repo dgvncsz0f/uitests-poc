@@ -1,0 +1,124 @@
+syntax = "proto3";
+package macbridge;
+
+message LauncherOpenAppInput {
+  string path = 1;
+}
+
+message LauncherOpenAppReply {
+  string app_ref = 1;
+}
+
+service Launcher {
+  rpc openApp (LauncherOpenAppInput) returns (LauncherOpenAppReply) {}
+}
+
+
+service Element {
+  rpc find (ElementFindInput) returns (ElementFindReply) {}
+
+  rpc listAttr (ElementListAttrInput) returns (ElementListAttrReply) {}
+
+  rpc listAction (ElementListActionInput) returns (ElementListActionReply) {}
+
+  rpc getAttr (ElementGetAttrInput) returns (ElementGetAttrReply) {}
+
+  rpc putAttr (ElementPutAttrInput) returns (ElementPutAttrReply) {}
+
+  rpc performAction (ElementPerformActionInput) returns (ElementPerformActionReply) {}
+}
+
+message ElementFindInput {
+  string app_ref = 1;
+  string filter = 2;
+}
+
+message ElementFindReply {
+  int32 count = 1;
+}
+
+message ElementListAttrInput {
+  string app_ref = 1;
+  string filter = 2;
+}
+
+message ElementListAttrReply {
+  repeated string attrs = 1;
+}
+
+message ElementListActionInput {
+  string app_ref = 1;
+  string filter = 2;
+}
+
+message ElementListActionReply {
+  repeated string actions = 1;
+}
+
+message ElementGetAttrInput {
+  string app_ref = 1;
+  string filter = 2;
+  string attribute = 3;
+}
+
+message ElementGetAttrReply {
+  ElementValue value = 1;
+}
+
+message ElementPutAttrInput {
+  string app_ref = 1;
+  string filter = 2;
+  string attribute = 3;
+  ElementValue value = 4;
+}
+
+message ElementPutAttrReply {
+  bool success = 1;
+}
+
+message ElementPerformActionInput {
+  string app_ref = 1;
+  string filter = 2;
+  string action = 3;
+}
+
+message ElementPerformActionReply {
+  bool success = 1;
+}
+
+message ElementValue {
+  oneof value {
+    string str_value = 2;
+    bool bool_value = 3;
+    int64 int_value = 4;
+    double float_value = 5;
+  }
+}
+
+service Keyboard {
+  rpc sendtext (KeyboardSendtextInput) returns (KeyboardSendtextReply) {}
+  rpc sendkeys (KeyboardSendkeysInput) returns (KeyboardSendkeysReply) {}
+}
+
+message KeyboardSendtextInput {
+  string text = 1;
+}
+
+message KeyboardSendtextReply {
+}
+
+message KeyboardSendkeysInput {
+  repeated Key keys = 1;
+}
+
+message KeyboardSendkeysReply {
+}
+
+message Key {
+  string key = 1;
+  repeated Modifier modifiers = 2;
+}
+
+enum Modifier {
+  SHIFT = 0;
+}

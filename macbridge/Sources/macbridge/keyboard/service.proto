@@ -1,0 +1,27 @@
+service Keyboard {
+  rpc sendtext (KeyboardSendtextInput) returns (KeyboardSendtextReply) {}
+  rpc sendkeys (KeyboardSendkeysInput) returns (KeyboardSendkeysReply) {}
+}
+
+message KeyboardSendtextInput {
+  string text = 1;
+}
+
+message KeyboardSendtextReply {
+}
+
+message KeyboardSendkeysInput {
+  repeated Key keys = 1;
+}
+
+message KeyboardSendkeysReply {
+}
+
+message Key {
+  string key = 1;
+  repeated Modifier modifiers = 2;
+}
+
+enum Modifier {
+  SHIFT = 0;
+}

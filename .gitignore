@@ -1,0 +1,4 @@
+/macbridge/.build/
+/uitests/.build/
+/uitests/node_modules/
+/.DS_Store

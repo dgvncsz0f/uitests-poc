@@ -1,0 +1,11 @@
+message LauncherOpenAppInput {
+  string path = 1;
+}
+
+message LauncherOpenAppReply {
+  string app_ref = 1;
+}
+
+service Launcher {
+  rpc openApp (LauncherOpenAppInput) returns (LauncherOpenAppReply) {}
+}
